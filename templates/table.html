@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+</head>
+
+<body>
+<h3>Apartments currently listed: </h3><br/>
+<table id="listings">
+{{ table|safe }}
+</table><br/>
+</body>

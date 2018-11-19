@@ -1,0 +1,51 @@
+column_names = [
+            'id',
+            'fromDate',
+            'toDate',
+            'numberOf',
+            'rooms',
+            'isLoggedIn',
+            'balcony',
+            'fastQueue',
+            'externalQueue',
+            'address',
+            'hasApplied',
+            'hasGoodChance',
+            'hasInternalQueue',
+            'elevator',
+            'rent',
+            'internalQueue',
+            'canApply',
+            'queue',
+            'queueName',
+            'municipality',
+            'latitude',
+            'longitude',
+            'short-term',
+            'type',
+            'similarStats',
+            'Q1',
+            'Q3',
+            'newlyBuilt',
+            'area',
+            'senior',
+            'district',
+            'student',
+            'youth',
+            'url',
+            'floor',
+            'normal',
+            'sqm'
+]
+
+fields = ['id', 'district', 'municipality', 'sqm', 'rooms', 'type', 'rent',
+          'Q3', 'fromDate', 'toDate']
+municipalities = ['Stockholm']
+districts = ['Nacka Strand', 'Sickla Strand', 'Södermalm', 'Johanneshov', 'Skeppsholmen',
+             'Reimersholme', 'Äppelviken', 'Vasastaden', 'Östermalm', 'Kungsholmen',
+             'Stadshagen', 'Årsta', 'Långholmen', 'Alvik', 'Aspudden', 'Gröndal',
+             'Hammarbyhöjden', 'Gamla Stan', 'Ladugårdsgärdet', 'Kristineberg',
+             'Norra Djurgården', 'Liljeholmen', 'Hjorthagen', 'Lilla Essingen',
+             'Norrmalm', 'Södra Hammarbyhamnen', 'Fredhäll', 'Marieberg', 'Midsommarkransen'
+             ]
+types = ['Hyresrätt', 'Korttidskontrakt', 'Bostadssnabben']
