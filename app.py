@@ -2,23 +2,32 @@ from flask import Flask, render_template
 from html_table import html_table
 from bf import BF
 from yaml import load
-
-
+from time import time
+from werkzeug.contrib.cache import SimpleCache
 app = Flask(__name__)
+cache = SimpleCache()
+
+
+def get_bf():
+    bf = cache.get("bf")
+    if bf is None:
+        bf = BF(
+            login=True,
+            detail=True,
+            username=config['username'],
+            password=config['password']
+        )
+        cache.set("bf", bf, timeout=5 * 60)
+    return bf
 
 
 @app.route("/")
 def index():
-    data = BF(
-        login=True,
-        detail=True,
-        username=config['username'],
-        password=config['password']
-    )
-    table = html_table(data.get_relevant_data())
-    html = "<h3>Apartments currently listed: </h3><br /> %s <br />" % table
-    #return html
-    return render_template("table.html", table=table)
+    start = time()
+    bf = get_bf()
+    table = html_table(bf.get_relevant_data())
+    seconds = round(time() - start, 3)
+    return render_template("table.html", table=table, time=seconds, latest=bf.latest)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 import requests
 import pandas as pd
-import datetime
 from collections import MutableMapping
 from numpy import nan
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 
 def flatten(d, parent_key='', sep='_'):
@@ -28,13 +28,28 @@ def flatten_municipality(area_list):
     return tmp
 
 
+def get_type(soup):
+    try:
+        type = soup.find(class_="highlightTxt").find(class_="m-tag").get_text()
+    except AttributeError:
+        type = None
+    return type
+
+
 def extract_queue(html):
     soup = BeautifulSoup(html, 'html.parser')
-    property = soup.find(class_='col40').find(class_='egenskap')
-    if property is None:
+    try:
+        property = soup.find(class_='col40').find(class_='egenskap')
+        type = get_type(soup)
+        if type == "Nyproduktion":
+            queue = type
+        elif property is None:
+            queue = nan
+        else:
+            queue = property.find(class_='v').get_text().replace(' av ', '/')
+    except Exception as e:
+        print("Caught exception collecting the queue. Setting queue to NaN.\n%s" % e)
         queue = nan
-    else:
-        queue = property.find(class_='v').get_text().replace(' av ', '/')
     return queue
 
 
@@ -63,6 +78,7 @@ class BF:
         self.login = login
         self.session = requests.Session()
         self.detail = detail
+        self.latest = datetime.now().strftime("%Y-%m-%d %H:%M:%S%z")
 
         if self.login:
             response = self.session.get(self.url + '/Minasidor/login/')

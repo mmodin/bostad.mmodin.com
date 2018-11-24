@@ -20,3 +20,11 @@
     background-color: #4CAF50;
     color: white;
 }
+
+p.serif{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+h3.serif{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}

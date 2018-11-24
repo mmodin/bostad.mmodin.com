@@ -5,8 +5,14 @@
 </head>
 
 <body>
-<h3>Apartments currently listed: </h3><br/>
+<h3 class="serif">
+Apartments currently listed:
+</h3><br/>
 <table id="listings">
 {{ table|safe }}
 </table><br/>
+<p class="serif">
+Data took {{ time }} seconds to download. Last updated on {{ latest }}. <br/>
+Source code on <a href=""> Github </a>
+</p>
 </body>
