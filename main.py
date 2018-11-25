@@ -37,4 +37,4 @@ def index():
 if __name__ == '__main__':
     with open('config.yml', 'r') as f:
         config = load(f)
-    app.run()
+    app.run(host='127.0.0.1', port='8080', debug='True')
