@@ -82,7 +82,7 @@ class BF:
 
         if self.login:
             response = self.session.get(self.url + '/Minasidor/login/')
-            #logger.info('Getting login cookie...status code: %s' % response.status_code)
+            print('Getting login cookie...status code: %s' % response.status_code)
             url = 'https://login001.stockholm.se/siteminderagent/forms/login.fcc'
             data = {
                 'target': '-SM-https://bostad.stockholm.se/secure/login',
@@ -94,7 +94,7 @@ class BF:
             response = self.session.post(url, data=data)
             if response.status_code == 200:
                 pass
-                #logger.info('Successfully logged in...')
+                print('Successfully logged in...')
             else:
                 #logger.error('Failed logging in with status code: %s' % response.status_code)
                 raise Exception('Login error')
@@ -105,7 +105,7 @@ class BF:
             self.all_listings = pd.DataFrame([flatten(d) for d in data])
             self.swedish_column_names = self.all_listings.columns
             self.all_listings.columns = column_names
-            #logger.info('Successfully downloaded %s listings...' % self.all_listings.shape[0])
+            print('Successfully downloaded %s listings...' % self.all_listings.shape[0])
             self.all_listings['fromDate'] = self.all_listings.fromDate.astype('datetime64[ns]')
             self.all_listings['toDate'] = self.all_listings.toDate.astype('datetime64[ns]')
             self.all_listings['relevant'] = self.all_listings.type.isin(self.types) \
@@ -116,13 +116,13 @@ class BF:
 
         if self.login and self.detail:
             n = self.all_listings[self.all_listings.relevant == True].shape[0]
-            #logger.info('Getting detailed data for %s listings...' % n)
+            print('Getting detailed data for %s listings...' % n)
             self.all_listings['queue'] = self.all_listings.apply(
                 lambda row: download_html(self.session, row['id'], row['relevant']),
                 axis=1
             )
             n_collected = self.all_listings[self.all_listings.queue.notnull()].shape[0]
-            #logger.info('Successfully collected queue data for %s listings' % n_collected)
+            print('Successfully collected queue data for %s listings' % n_collected)
 
     def get_relevant_data(self):
         pd.options.display.float_format = '{:,.0f}'.format
