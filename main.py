@@ -8,7 +8,9 @@ from werkzeug.contrib.cache import SimpleCache
 
 app = Flask(__name__)
 cache = SimpleCache()
-
+with open('config.yml', 'r') as f:
+    config = load(f)
+ 
 
 def get_bf():
     bf = cache.get('bf')
@@ -35,6 +37,4 @@ def index():
 
 
 if __name__ == '__main__':
-    with open('config.yml', 'r') as f:
-        config = load(f)
     app.run(host='127.0.0.1', port='8080', debug='True')
