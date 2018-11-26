@@ -1,0 +1,8 @@
+pandas==0.23.4
+numpy==1.15.3
+Werkzeug==0.14.1
+requests==2.20.0
+Flask==1.0.2
+beautifulsoup4==4.6.3
+protobuf==3.6.1
+PyYAML==3.13

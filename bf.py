@@ -24,7 +24,6 @@ def flatten_municipality(area_list):
     for d in area_list:
         for l in d['Stadsdelar']:
             tmp.append({'municipality': d['Kommun'], 'district': l})
-
     return tmp
 
 
